@@ -66,7 +66,6 @@ const ListSize = () => {
       ),
     });
   }
-  console.log(data1);
   const deleteSize = (e) => {
     dispatch(deleteASize(e));
     setOpen(false);

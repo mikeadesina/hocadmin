@@ -10,7 +10,7 @@ import gr4 from "../../images/gr4.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllProducts } from "../../features/product/productSlice";
 import { getColors } from "../../features/colors/colorSlice";
-import { json, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const OurStore = () => {
   const [grid, setGrid] = useState(4);

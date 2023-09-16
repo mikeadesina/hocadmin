@@ -23,6 +23,10 @@ const columns = [
       dataIndex: "count",
     },
     {
+      title: "Payment Method",
+      dataIndex: "payment",
+    },
+    {
       title: "Shipping Info",
       dataIndex: "shippingInfo",
     },
@@ -35,6 +39,8 @@ const columns = [
       dataIndex: "amount",
     },
   ];
+
+
 const ViewOrder = () => {
   const location = useLocation();
   const orderId = location.pathname.split("/")[3];
@@ -43,7 +49,6 @@ const ViewOrder = () => {
     dispatch(getAOrder(orderId));
   }, []);
   const orderState = useSelector((state) => state?.auth?.singleOrder?.orders);
-console.log(orderState);
   const data1 = [];
   for (let i = 0; i < orderState?.orderItems?.length; i++) {
     data1.push({
@@ -54,6 +59,7 @@ console.log(orderState);
       shippingInfo: orderState?.shippingInfo?.address,
       amount: orderState?.orderItems[i]?.price,
       color: orderState?.orderItems[i]?.color?.title,
+      payment: orderState?.paymentInfo?.method,
     });
   }
   return (

@@ -46,12 +46,21 @@ import Meta from "../../components/Meta/Meta";
 const Home = () => {
   const blogState = useSelector((state) => state?.blog?.blog);
   const productState = useSelector((state) => state?.product?.product);
-  const banState = useSelector((state) => state?.banner?.banners[0]?.images[0]?.url);
-  const smallBan1 = useSelector((state) => state?.banner?.banners[1]?.images[0]?.url);
-  const smallBan2 = useSelector((state) => state?.banner?.banners[2]?.images[0]?.url);
-  const smallBan3 = useSelector((state) => state?.banner?.banners[3]?.images[0]?.url);
-  const smallBan4 = useSelector((state) => state?.banner?.banners[4]?.images[0]?.url);
-
+  const banState = useSelector(
+    (state) => state?.banner?.banners[0]?.images[0]?.url
+  );
+  const smallBan1 = useSelector(
+    (state) => state?.banner?.banners[1]?.images[0]?.url
+  );
+  const smallBan2 = useSelector(
+    (state) => state?.banner?.banners[2]?.images[0]?.url
+  );
+  const smallBan3 = useSelector(
+    (state) => state?.banner?.banners[3]?.images[0]?.url
+  );
+  const smallBan4 = useSelector(
+    (state) => state?.banner?.banners[4]?.images[0]?.url
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -84,20 +93,14 @@ const Home = () => {
         <div className="home-container">
           <div className="home-row">
             <div className="home-coloum-1">
-              <div
-                style={{ padding: 16, position: "relative" }}
-                className="main-banner"
-              >
+              <div style={{ padding: 16 }} className="main-slider">
                 <img src={banState} className="main-img" alt="main-banner" />
-                <div
-                  style={{ position: "absolute" }}
-                  className="main-banner-content"
-                >
-                  <Link style={{ marginTop: 300 }} className="button">
-                    BUY NOW
-                  </Link>
-                </div>
+                {/* <img src={mainBanner} className="main-img" alt="main-banner" /> */}
               </div>
+              {/* <div class="slider-controls">
+                <button class="slider-button prev-button">&#10094;</button>
+                <button class="slider-button next-button">&#10095;</button>
+              </div> */}
             </div>
             <div className="home-coloum-2">
               <div
@@ -115,7 +118,7 @@ const Home = () => {
                 >
                   <img
                     src={smallBan1}
-                    className="main-img"
+                    className="small-img"
                     alt="small-banner"
                   />
                 </div>
@@ -125,7 +128,7 @@ const Home = () => {
                 >
                   <img
                     src={smallBan2}
-                    className="main-img"
+                    className="small-img"
                     alt="small-banner"
                   />
                 </div>
@@ -135,7 +138,7 @@ const Home = () => {
                 >
                   <img
                     src={smallBan3}
-                    className="main-img"
+                    className="small-img r2"
                     alt="small-banner"
                   />
                 </div>
@@ -145,7 +148,7 @@ const Home = () => {
                 >
                   <img
                     src={smallBan4}
-                    className="main-img"
+                    className="small-img r3"
                     alt="small-banner"
                   />
                 </div>
@@ -209,75 +212,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section
-        className="home-wrapper-3 home-wrapper-02"
-        style={{ paddingTop: 24, paddingBottom: 24 }}
-      >
-        <div className="home-container-03">
-          <div className="home-row-03">
-            <div className="home-coloum-03">
-              <div className="categories">
-                <div className="home-cat">
-                  <div>
-                    <h6>Cameras</h6>
-                    <p>10 items</p>
-                  </div>
-                  <img src={camera} alt="camera" />
-                </div>
-                <div className="home-cat">
-                  <div>
-                    <h6>Music & Gaming</h6>
-                    <p>10 items</p>
-                  </div>
-                  <img src={camera} alt="camera" />
-                </div>
-                <div className="home-cat">
-                  <div>
-                    <h6>Smart Tv</h6>
-                    <p>10 items</p>
-                  </div>
-                  <img src={tv} alt="camera" />
-                </div>
-                <div className="home-cat">
-                  <div>
-                    <h6>Smart Watches</h6>
-                    <p>10 items</p>
-                  </div>
-                  <img src={headphone} alt="camera" />
-                </div>
-                <div className="home-cat">
-                  <div>
-                    <h6>Cameras</h6>
-                    <p>10 items</p>
-                  </div>
-                  <img src={camera} alt="camera" />
-                </div>
-                <div className="home-cat">
-                  <div>
-                    <h6>Music & Gaming</h6>
-                    <p>10 items</p>
-                  </div>
-                  <img src={camera} alt="camera" />
-                </div>
-                <div className="home-cat">
-                  <div>
-                    <h6>Smart Tv</h6>
-                    <p>10 items</p>
-                  </div>
-                  <img src={tv} alt="camera" />
-                </div>
-                <div className="home-cat">
-                  <div>
-                    <h6>Smart Watches</h6>
-                    <p>10 items</p>
-                  </div>
-                  <img src={headphone} alt="camera" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
       <section
         className="featured-wrapper home-wrapper-02"
         style={{ paddingTop: 48, paddingBottom: 48 }}
@@ -330,7 +265,7 @@ const Home = () => {
                                 __html: item?.description,
                               }}
                             ></p>
-                            <p className="price">$ {item?.price}</p>
+                            <p className="price">NGN {item?.price}</p>
                           </div>
                           <div
                             style={{ position: "absolute" }}
@@ -360,74 +295,7 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section
-        className="famous-wrapper home-wrapper-02"
-        style={{ paddingTop: 48, paddingBottom: 48 }}
-      >
-        <div className="home-container-09">
-          <div className="home-row-09">
-            <div className="home-coloum-09">
-              <div style={{ position: "relative" }} className="famous-card">
-                <img src={famous1} alt="famous" />
-                <div
-                  style={{ position: "absolute" }}
-                  className="famous-content"
-                >
-                  <h5 className="home-h5-01">Big Screen</h5>
-                  <h6 className="home-h6-01">Smart Watch Series 7</h6>
-                  <p className="home-p-01">
-                    From $399 or #16.62/mo. for 24 mo.*
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="home-coloum-09">
-              <div style={{ position: "relative" }} className="famous-card">
-                <img src={famous2} alt="famous" />
-                <div
-                  style={{ position: "absolute" }}
-                  className="famous-content"
-                >
-                  <h5 className="home-h5-02">Studio Display</h5>
-                  <h6 className="home-h6-02">600 nits of brightness</h6>
-                  <p className="home-p-02">27-inch 5k Reina display</p>
-                </div>
-              </div>
-            </div>
-            <div className="home-coloum-09">
-              <div style={{ position: "relative" }} className="famous-card">
-                <img src={famous3} alt="famous" />
-                <div
-                  style={{ position: "absolute" }}
-                  className="famous-content"
-                >
-                  <h5 className="home-h5-02">SmartPhone</h5>
-                  <h6 className="home-h6-02">SmartPhone 13 Pro.</h6>
-                  <p className="home-p-02">
-                    Now in Green. From $999.00 or <br /> 41.62/mo. for 24 mo
-                    Footnote*
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="home-coloum-09">
-              <div style={{ position: "relative" }} className="famous-card">
-                <img src={famous4} alt="famous" />
-                <div
-                  style={{ position: "absolute" }}
-                  className="famous-content"
-                >
-                  <h5 className="home-h5-02">home speakers</h5>
-                  <h6 className="home-h6-02">Room filling sound.</h6>
-                  <p className="home-p-02">
-                    From $699 or $116.58/mo. for 12 mo.*
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
       <section
         className="special-wrapper home-wrapper-02"
         style={{ paddingTop: 24, paddingBottom: 24 }}

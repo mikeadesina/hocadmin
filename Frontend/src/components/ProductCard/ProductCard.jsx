@@ -62,7 +62,7 @@ const ProductCard = (props) => {
               dangerouslySetInnerHTML={{__html: item?.description}}
             >
             </p>
-            <p className="price">$ {item?.price}</p>
+            <p className="price">NGN {item?.price}</p>
           </div>
           <div style={{ position: "absolute" }} className="action-bar">
             <div className="product-card-div">

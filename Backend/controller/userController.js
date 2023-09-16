@@ -1,9 +1,6 @@
 const User = require("../models/userModel");
-const Product = require("../models/productModel");
 const Cart = require("../models/cartModel");
-const Coupon = require("../models/couponModel");
 const Order = require("../models/orderModel");
-var uniqid = require("uniqid");
 const asyncHandler = require("express-async-handler");
 const { generateToken } = require("../config/jwtToken");
 const ValidateMongoDbId = require("../utils/validateMongodbid");
@@ -405,8 +402,10 @@ const createOrder = asyncHandler(async (req, res) => {
     totalPrice,
     totalPriceAfterDiscount,
     paymentInfo,
+
   } = req.body;
   const { _id } = req.user;
+  const email = shippingInfo.email;
   try {
     const order = await Order.create({
       shippingInfo,
@@ -416,6 +415,40 @@ const createOrder = asyncHandler(async (req, res) => {
       paymentInfo,
       user: _id,
     });
+    const data={
+      to: email,
+      text:"hello Sir/Mam",
+      subject:"Your Order",
+      htm:`<html>
+      <head>
+      </head>
+      <body>
+          <div class="topper" style="
+                      background-color: #232f3e;
+                      width: 100%;
+                      height: 100%;
+                      color: white;
+                      font-family: sans-serif;
+                      padding: 5px;
+                      border-radius: 12px;
+                      text-align: center;">
+              <h1 style="padding: 5px 0px 0px 0px;">HOC</h1>
+              <p style="padding: 0px 0px 10px 0px;">
+              Thank you for shopping from us.</p>
+              <p style="padding: 10px 0px 0px 0px;">If you did not register with us, please ignore this email.</p>
+          <hr style="border-top: 1px solid #232f3e; border-left: 0px, marginTop:5px">
+          <div class="footer content" style="margin: 0 auto;width: fit-content;">
+              <p
+                  style="margin-left: auto;margin-right: auto;color: white;font-size: small;">
+                  HOC Ecommerce. Powerful, self-serve product and growth analytics to help you convert, engage, and retain more.</p>
+                  <p style="margin-left: auto;margin-right: auto; padding: 0px 0px 10px 0px;color: white;font-size: small;">Explore our collection of shoes, Beauty, Mobiles, sneakers, and more.</p>
+          </div>
+          <p style="padding: 10px 0px 10px 0px"> &copy;  HOC Store. All rights reserved.</p>
+      </div>
+      </body>
+      </html>`,
+    }
+     await sendEmail(data);
     res.json({
       order,
       success: true,

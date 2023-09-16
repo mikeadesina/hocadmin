@@ -34,6 +34,9 @@ const Orders = () => {
                 <div className="order-page-coloum-3">
                   <h4 className="heading">Status</h4>
                 </div>
+                <div className="order-page-coloum-3">
+                  <h4 className="heading">Shipping Info</h4>
+                </div>
               </div>
               <div className="order-page-coloum-4">
                 {orderState &&
@@ -45,7 +48,7 @@ const Orders = () => {
                         key={index}
                       >
                         <div className="order-page-coloum-2" id="remo">
-                          <p>{item?._id}</p>
+                          <p className="pad">{item?._id}</p>
                         </div>
                         <div className="order-page-coloum-3" id="remo">
                           <p>{item?.totalPrice}</p>
@@ -56,10 +59,13 @@ const Orders = () => {
                         <div className="order-page-coloum-3" id="remo">
                           <p>{item?.orderStatus}</p>
                         </div>
+                        <div className="order-page-coloum-3" id="remo">
+                          <p>{item?.shippingInfo?.address}</p>
+                        </div>
                         <div className="order-page-coloum-5">
                           <div className="order-page-row-3">
                             <div className="order-page-coloum-2">
-                              <p>Product Name</p>
+                              <p className="pad">Product Name</p>
                             </div>
                             <div className="order-page-coloum-3">
                               <p>Quantity</p>
@@ -75,7 +81,7 @@ const Orders = () => {
                                 <div className="order-page-coloum-5" key={index}>
                                   <div className="order-page-row-3">
                                     <div className="order-page-coloum-2">
-                                      <p>{i?.product?.title}</p>
+                                      <p className="pad">{i?.product?.title}</p>
                                     </div>
                                     <div className="order-page-coloum-3">
                                       <p>{i?.quantity}</p>

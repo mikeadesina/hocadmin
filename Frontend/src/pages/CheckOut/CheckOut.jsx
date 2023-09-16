@@ -19,6 +19,7 @@ import { usePaystackPayment } from "react-paystack";
 const shippingSchema = yup.object({
   firstName: yup.string().required("First Name is required"),
   lastName: yup.string().required("Last Name is required"),
+  email: yup.string().email().required("Email is required"),
   address: yup.string().required("Address Details are required"),
   other: yup.string().required(" Details are required"),
   state: yup.string().required("State is required"),
@@ -65,7 +66,7 @@ const CheckOut = () => {
   const option = {
     public_key: "FLWPUBK_TEST-1bc4bb2aebb5377a7c811d27eb7b1dec-X",
     tx_ref: Date.now(),
-    amount: totalAmount,
+    amount: totalAmount + 50,
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
     customer: {
@@ -91,6 +92,7 @@ const CheckOut = () => {
       city: "",
       country: "",
       pincode: "",
+      email:""
     },
     validationSchema: shippingSchema,
     onSubmit: (values) => {
@@ -138,7 +140,7 @@ const CheckOut = () => {
         callback: async (response) => {
           if (response.status === "successful") {
             // Call the function to create the order with payment info for "flutterwave"
-            createOrderWithPaymentInfo(response);
+            createOrderWithPaymentInfo({method:"FlutterWave",response});
           }
           closePaymentModal();
         },
@@ -312,20 +314,33 @@ const CheckOut = () => {
                     </div>
                   </div>
                   <div className="checkout-div-03">
-                    <select
-                      placeholder="state"
-                      className="checkout-form-control select-control"
-                      name="state"
+                    <input
+                      type="text"
+                      placeholder="email"
+                      className="checkout-form-control"
+                      name="email"
+                      id=""
+                      onChange={formik.handleChange("email")}
+                      onBlur={formik.handleChange("email")}
+                      value={formik.values.email}
+                    />
+                    <div className="error">
+                      {formik.touched.email && formik.errors.email}
+                    </div>
+                  </div>
+                  <div className="checkout-div-03">
+              
+                      <input
+                      type="text"
+                      placeholder="ZipCode"
+                      className="checkout-form-control"
+                      name="pin"
                       id=""
                       onChange={formik.handleChange("state")}
                       onBlur={formik.handleChange("state")}
                       value={formik.values.state}
-                    >
-                      <option value="" selected disabled>
-                        Select State
-                      </option>
-                      <option value="mardan">Mardan</option>
-                    </select>
+                      />
+                
                     <div className="error">
                       {formik.touched.state && formik.errors.state}
                     </div>
@@ -333,7 +348,7 @@ const CheckOut = () => {
                   <div className="checkout-div-03">
                     <input
                       type="text"
-                      placeholder="PinCode"
+                      placeholder="State"
                       className="checkout-form-control"
                       name="pin"
                       id=""

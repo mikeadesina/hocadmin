@@ -1,5 +1,5 @@
 .adminlogin-div-1 {
-  background: #ffd333;
+  background: #232f3e;
   padding-top: 3rem;
   padding-bottom: 3rem;
   min-height: 100vh;
@@ -19,11 +19,10 @@
   text-align: right;
 }
 .adminlogin-button-1{
-  background: #ffd333;
-  padding-left: 9.7rem;
-  padding-right: 8.8rem;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  background: #febd69;
+  width: 107%;
+  height: 45px;
+  margin-top: 20px;
   color: white;
   align-items: center;
   text-decoration: none;
@@ -31,6 +30,7 @@
   font-weight: bold;
   border-radius: 0.5rem;
   border: none;
+  cursor: pointer;
 }
 .adminlogin-h3{
     text-align: center;

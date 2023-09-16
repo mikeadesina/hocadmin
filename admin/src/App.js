@@ -25,6 +25,7 @@ import { OpenRoutes } from './pages/ProtectedRoutes/OpenRoute';
 import AddSize from './pages/SizeSection/AddSize';
 import SizeList from './pages/SizeSection/ListSize';
 import AddBanner from './pages/Banners/AddBanner';
+import BannerList from './pages/Banners/BannerList';
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
         <Route path='product/:id' element={<AddProduct />}/>
 
         <Route path='banner' element={<AddBanner />}/>
+        <Route path='banner-list' element={<BannerList />}/>
         
       </Route>
     </Routes>

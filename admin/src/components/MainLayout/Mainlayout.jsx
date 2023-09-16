@@ -27,7 +27,6 @@ const Mainlayout = () => {
     token: { colorBgContainer },
   } = theme.useToken();
  const userState = useSelector((state)=>state?.auth?.user)
- console.log("state  = ",userState);
   return (
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
@@ -154,16 +153,6 @@ const Mainlayout = () => {
               ],
             },
             {
-              key: "enquiries",
-              icon: <FaClipboardList style={{ fontSize: "1.2rem" }} />,
-              label: "Enquiries",
-            },
-            {
-              key: "signout",
-              icon: <CiLogout style={{ fontSize: "1.2rem" }} />,
-              label: "Sign Out",
-            },
-            {
               key: "banners",
               icon: <AiOutlineCloudUpload style={{ fontSize: "1.2rem" }} />,
               label: "Banners",
@@ -180,6 +169,17 @@ const Mainlayout = () => {
                 },
               ]
             },
+            {
+              key: "enquiries",
+              icon: <FaClipboardList style={{ fontSize: "1.2rem" }} />,
+              label: "Enquiries",
+            },
+            {
+              key: "signout",
+              icon: <CiLogout style={{ fontSize: "1.2rem" }} />,
+              label: "Sign Out",
+            },
+           
           ]}
         />
       </Sider>

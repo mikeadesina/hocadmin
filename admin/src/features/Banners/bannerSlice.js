@@ -64,7 +64,7 @@ export const bannerSlice = createSlice({
           state.isLoading = false;
           state.isError = false;
           state.isSuccess = true;
-          state.bCategories = action.payload;
+          state.banners = action.payload;
         })
         .addCase(getBanner.rejected, (state, action) => {
           state.isLoading = false;
@@ -79,7 +79,7 @@ export const bannerSlice = createSlice({
           state.isLoading = false;
           state.isError = false;
           state.isSuccess = true;
-          state.createBlogCategory = action.payload;
+          state.createBanner = action.payload;
         })
         .addCase(createBanners.rejected, (state, action) => {
           state.isLoading = false;
@@ -94,7 +94,7 @@ export const bannerSlice = createSlice({
           state.isLoading = false;
           state.isError = false;
           state.isSuccess = true;
-          state.updatedBlogCategory = action.payload;
+          state.updatedBanner = action.payload;
         })
         .addCase(updateBanners.rejected, (state, action) => {
           state.isLoading = false;
@@ -109,7 +109,8 @@ export const bannerSlice = createSlice({
           state.isLoading = false;
           state.isError = false;
           state.isSuccess = true;
-          state.deletedBlogCategory = action.payload;
+          state.deletedBannerId = action.payload; // You can add this line to store the deleted banner ID
+          state.banners = state.banners.filter((banner) => banner._id !== action.payload);
         })
         .addCase(deleteABanner.rejected, (state, action) => {
           state.isLoading = false;

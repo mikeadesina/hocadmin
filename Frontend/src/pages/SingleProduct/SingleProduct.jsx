@@ -312,11 +312,10 @@ const SingleProduct = () => {
                       <ReactStars
                         count={5}
                         size={24}
-                        value={3}
+                        value={5}
                         edit={false}
                         activeColor="#ffd700"
                       />
-                      <p style={{ marginTop: "3px" }}>Based on 2 reviews</p>
                     </div>
                   </div>
                   {orderedProduct && (
