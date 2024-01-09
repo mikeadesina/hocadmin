@@ -1,15 +1,11 @@
 import React, { useEffect } from "react";
 import "./Login.css";
 import CustomInput from "../../../components/CustomInput/CustomInput";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../../features/auth/authSlice";
-
-
-
-
 let schema = Yup.object().shape({
   email: Yup.string()
     .email("Email Should Be Valid")
@@ -17,12 +13,9 @@ let schema = Yup.object().shape({
   password: Yup.string().required("Password is Required"),
 });
 
-
-
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -34,24 +27,17 @@ const Login = () => {
     },
   });
   const authState = useSelector((state) => state);
-
   const { user, isLoading, isError, isSuccess, message } = authState.auth;
-
   useEffect(() => {
     if (isSuccess) {
       navigate("admin");
     } else {
       navigate("");
     }
-  }, [user, isError, isSuccess, isLoading]);
+  }, [navigate,user, isError, isSuccess, isLoading]);
 
   return (
     <div className="adminlogin-div-1">
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <div className="adminlogin-div-2">
         <h3 className="adminlogin-h3">Login</h3>
         <p className="adminlogin-p">Login to your account to continue.</p>

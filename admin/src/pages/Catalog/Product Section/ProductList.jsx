@@ -1,12 +1,24 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./ProductList.css";
 import { BiEdit } from "react-icons/bi";
 import { AiOutlineDelete } from "react-icons/ai";
-import { Table } from "antd";
+import { Table, Tag } from "antd"; // Import Tag from Ant Design
 import { useDispatch, useSelector } from "react-redux";
 import { deleteAProduct, getProducts } from "../../../features/product/productSlice";
 import { Link } from "react-router-dom";
 import CustomModal from "../../../components/CustomModel/CustomModel";
+
+const getColorTags = (colors) => {
+  return colors.map((color) => (
+      <Tag key={color} color={color} style={{ marginRight: 4 }}>
+        {color}
+      </Tag>
+  ));
+};
+
+const getSizeString = (sizes) => {
+  return sizes.join(", ");
+};
 
 const columns = [
   {
@@ -31,10 +43,12 @@ const columns = [
   {
     title: "Color",
     dataIndex: "color",
+    render: (colors) => getColorTags(colors),
   },
   {
     title: "Size",
     dataIndex: "size",
+    render: (sizes) => getSizeString(sizes),
   },
   {
     title: "Price",
@@ -62,8 +76,13 @@ const ProductList = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProducts());
-  }, []);
+    try {
+      dispatch(getProducts());
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  }, [dispatch]);
+
   const productState = useSelector((state) => state.product.products);
   const data1 = [];
   for (let i = 0; i < productState?.length; i++) {
@@ -76,42 +95,43 @@ const ProductList = () => {
       size: productState[i]?.size,
       price: `${productState[i].price}`,
       action: (
-        <>
-           <Link to={`/admin/product/${productState[i]._id}`} className="pl-icon-1">
-            <BiEdit />
-          </Link>
-          <button
-            className="pl-icon-2 brandlist-icon-2"
-            onClick={() => showModal(productState[i]._id)}
-          >
-            <AiOutlineDelete />
-          </button>
-        </>
+          <>
+            <Link to={`/admin/product/${productState[i]._id}`} className="pl-icon-1">
+              <BiEdit />
+            </Link>
+            <button
+                className="pl-icon-2 brandlist-icon-2"
+                onClick={() => showModal(productState[i]._id)}
+            >
+              <AiOutlineDelete />
+            </button>
+          </>
       ),
     });
   }
-  const deleteProduct = (e) => {
-    dispatch(deleteAProduct(e));
+
+  const deleteProduct = async (e) => {
+    console.log(e);
+    await dispatch(deleteAProduct(e));
+    dispatch(getProducts());
     setOpen(false);
-    setTimeout(() => {
-      dispatch(getProducts());
-    }, 200);
   };
+
   return (
-    <div>
-      <h3 className="Productlist-list-h3">Product List</h3>
-      <div>
-        <Table columns={columns} dataSource={data1} />
+      <div className="product-list-container">
+        <h3 className="Productlist-list-h3">Product List</h3>
+        <div className="table-container">
+          <Table columns={columns} dataSource={data1} />
+        </div>
+        <CustomModal
+            hideModal={hideModal}
+            open={open}
+            performAction={() => {
+              deleteProduct(productId);
+            }}
+            title="Are you sure you want to delete this Product?"
+        />
       </div>
-      <CustomModal
-        hideModal={hideModal}
-        open={open}
-        performAction={() => {
-          deleteProduct(productId);
-        }}
-        title="Are you sure you want to delete this Product?"
-      />
-    </div>
   );
 };
 

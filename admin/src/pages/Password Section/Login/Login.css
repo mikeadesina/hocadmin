@@ -1,46 +1,65 @@
 .adminlogin-div-1 {
-  background: #232f3e;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  min-height: 100vh;
+    background: #232f3e;
+    padding-top: 0.2rem;
+    padding-bottom: 0.5rem;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -2rem;
 }
+
 .adminlogin-div-2 {
-  margin-bottom: 5rem;
-  width: 25%;
-  background-color: white;
-  border-radius: 0.3rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 3.5rem;
+    width: 80%;
+    max-width: 400px;
+    background-color: white;
+    border-radius: 0.3rem;
+    padding: 2rem;
 }
-.adminlogin-div-3{
-  margin-bottom: 2rem;
-  margin-right: -26px;
-  text-align: right;
+
+.adminlogin-div-3 {
+    margin-bottom: 1rem;
+    text-align: right;
 }
-.adminlogin-button-1{
-  background: #febd69;
-  width: 107%;
-  height: 45px;
-  margin-top: 20px;
-  color: white;
-  align-items: center;
-  text-decoration: none;
-  font-size: 1.25rem;
-  font-weight: bold;
-  border-radius: 0.5rem;
-  border: none;
-  cursor: pointer;
+
+.adminlogin-button-1 {
+    background: #febd69;
+    width: 107%;
+    height: 40px;
+    margin-top: 15px;
+    color: white;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
 }
-.adminlogin-h3{
+
+/* Adjust margin for the button to align with inputs */
+.adminlogin-button-1 {
+    margin-top: 15px;
+    margin-bottom: 0; /* Remove bottom margin */
+}
+
+.adminlogin-h3 {
     text-align: center;
     margin-top: 5px;
     margin-bottom: 10px;
-    font-size: 28px;
-    font-family: Roboto !important;
+    font-size: 24px;
+    font-family: Roboto, sans-serif !important;
 }
-.adminlogin-p{
+
+.adminlogin-p {
     text-align: center;
     margin-top: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+/* Add media query for small screens */
+@media only screen and (max-width: 768px) {
+    .adminlogin-div-2 {
+        width: 90%;
+    }
 }

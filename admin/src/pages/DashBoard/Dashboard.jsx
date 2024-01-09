@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
-import { BsArrowDownRight, BsArrowUpRight } from "react-icons/bs";
 import { Column } from "@ant-design/plots";
 import { Table } from "antd";
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import { getMonthlyData, getOrders, getYearlyData } from "../../features/auth/authSlice";
 
 const columns = [
@@ -33,29 +32,26 @@ const columns = [
   },
 ];
 
-
 const Dashboard = () => {
-
   const dispatch = useDispatch();
-  const monthlyDataState = useSelector((state)=>state?.auth?.monthlyData);
-  const yearlyDataState = useSelector((state)=>state?.auth?.yearlyData);
-  const orderState = useSelector((state)=>state?.auth?.orders?.orders);
-  const [dataMonthly , setDataMonthly] = useState([])
-  const [dataMonthlySales , setDataMonthlySales] = useState([])
-  const [orderData , setOrderData] = useState([])
-
+  const monthlyDataState = useSelector((state) => state?.auth?.monthlyData);
+  const yearlyDataState = useSelector((state) => state?.auth?.yearlyData);
+  const orderState = useSelector((state) => state?.auth?.orders?.orders);
+  const [dataMonthly, setDataMonthly] = useState([]);
+  const [dataMonthlySales, setDataMonthlySales] = useState([]);
+  const [orderData, setOrderData] = useState([]);
   const getTokenFromLocalStorage = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
-  : null;
+      ? JSON.parse(localStorage.getItem("user"))
+      : null;
 
- const config3 = {
-  headers: {
-    Authorization: `Bearer ${
-      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-    }`,
-    Accept: "application/json",
-  },
-};
+  const config3 = {
+    headers: {
+      Authorization: `Bearer ${
+          getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+      }`,
+      Accept: "application/json",
+    },
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -69,6 +65,7 @@ const Dashboard = () => {
     }, 100);
   }, [])
   console.log(orderState);
+
   useEffect(() => {
     let monthNames = [
       "January",
@@ -89,33 +86,33 @@ const Dashboard = () => {
     for (let index = 0; index < monthlyDataState?.length; index++) {
       const element = monthlyDataState[index];
       data.push({
-        type:monthNames[element._id?.month],income:element?.amount
-      })
+        type: monthNames[element._id?.month],
+        income: element?.amount,
+      });
       monthlyOrderCount.push({
-        type:monthNames[element._id?.month],sales:element?.count
-
-      })
+        type: monthNames[element._id?.month],
+        sales: element?.count,
+      });
     }
-    setDataMonthly(data)
-    setDataMonthlySales(monthlyOrderCount)
-
+    setDataMonthly(data);
+    setDataMonthlySales(monthlyOrderCount);
     const data1 = [];
-for (let i = 0; i < orderState?.length; i++) {
-  data1.push({
-    key: i,
-    name: orderState[i]?.user?.firstname + orderState[i]?.user?.lastname,
-    product: orderState[i]?.orderItems?.length,
-    price :orderState[i]?.totalPrice,
-    dprice: orderState[i]?.totalPriceAfterDiscount,
-    status: orderState[i]?.orderStatus,
-  });
-}
-  setOrderData(data1)
-  }, [monthlyDataState,yearlyDataState])
-
+    for (let i = 0; i < orderState?.length; i++) {
+      data1.push({
+        key: i,
+        name:
+            orderState[i]?.user?.firstname + " " + orderState[i]?.user?.lastname,
+        product: orderState[i]?.orderItems?.length,
+        price: orderState[i]?.totalPrice,
+        dprice: orderState[i]?.totalPriceAfterDiscount,
+        status: orderState[i]?.orderStatus,
+      });
+    }
+    setOrderData(data1);
+  }, [monthlyDataState, yearlyDataState,orderState]);
 
   const config = {
-    data : dataMonthly,
+    data: dataMonthly,
     xField: "type",
     yField: "income",
     color: ({ type }) => {
@@ -143,8 +140,9 @@ for (let i = 0; i < orderState?.length; i++) {
       },
     },
   };
+
   const config2 = {
-    data : dataMonthlySales,
+    data: dataMonthlySales,
     xField: "type",
     yField: "sales",
     color: ({ type }) => {
@@ -172,48 +170,67 @@ for (let i = 0; i < orderState?.length; i++) {
       },
     },
   };
+
   return (
-    <div>
-      <h3 className="dash-h3">Dashboard</h3>
-      <div className="dash-div-1">
-        <div className="dash-div-2">
-          <div>
-            <p className="desc">Total Income</p> <h2 className="dash-h2 sub-title">ngn  {yearlyDataState && yearlyDataState[0]?.amount}</h2>
+      <div className="dashboard-container">
+        <h3 className="dash-h3">Dashboard</h3>
+        <div className="dash-row">
+          <div className="dash-card-container">
+            <div className="dash-card">
+              <div className="dash-card-body">
+                <p className="desc">Total Income</p>
+                <h2 className="dash-h2 sub-title">
+                  ngn {yearlyDataState && yearlyDataState[0]?.amount}
+                </h2>
+              </div>
+              <div className="dash-card-footer">
+                <p className="desc">Yearly Total Income</p>
+              </div>
+            </div>
+
+            <div className="dash-card">
+              <div className="dash-card-body">
+                <p className="desc">Total Sales</p>
+                <h2 className="dash-h2 sub-title">
+                  {yearlyDataState && yearlyDataState[0]?.count}
+                </h2>
+              </div>
+              <div className="dash-card-footer">
+                <p className="desc">Yearly Total Sales</p>
+              </div>
+            </div>
           </div>
-          <div className="dash-div-5">
-            <p className="desc" style={{ marginBottom: 0 }}>Yearly Total Icome</p>
+        </div>
+        <div className="dash-row">
+          <div className="dash-card">
+            <div className="dash-card-header">
+              <h3 className="dashh-h3">Income Statics</h3>
+            </div>
+            <div className="dash-card-body">
+              <Column {...config} />
+            </div>
+          </div>
+
+          <div className="dash-card">
+            <div className="dash-card-header">
+              <h3 className="dashh-h3">Sales Statics</h3>
+            </div>
+            <div className="dash-card-body">
+              <Column {...config2} />
+            </div>
           </div>
         </div>
-        <div className="dash-div-3">
-          <div>
-            <p className="desc">Total Sales</p> <h2 className="dash-h2 sub-title">{yearlyDataState && yearlyDataState[0]?.count}</h2>
+        <div className="dash-row">
+          <div className="dash-card">
+            <div className="dash-card-header">
+              <h3 className="dashh-h3">Recent Orders</h3>
+            </div>
+            <div className="dash-card-body">
+              <Table columns={columns} dataSource={orderData} />
+            </div>
           </div>
-          <div className="dash-div-5">
-            <p className="desc" style={{ marginBottom: 0 }}>Yearly Total Sales</p>
-          </div>
         </div>
       </div>
-      <div className="mo-or">
-      <div style={{ marginTop: "1.5rem" ,"flexGrow":1 , "width" :"50%"}}>
-        <h3 className="dashh-h3">Income Statics</h3>
-        <div>
-          <Column {...config} />
-        </div>
-      </div>
-      <div style={{ marginTop: "1.5rem" ,"flexGrow":1 , "width" :"50%"}}>
-        <h3 className="dashh-h3">Sales Statics</h3>
-        <div>
-          <Column {...config2} />
-        </div>
-      </div>
-      </div>
-      <div style={{ marginTop: "1.5rem"}}>
-        <h3 className="dashh-h3">Recent Orders</h3>
-        <div>
-        <Table columns={columns} dataSource={orderData} />
-        </div>
-      </div>
-    </div>
   );
 };
 

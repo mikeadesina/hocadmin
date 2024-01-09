@@ -3,6 +3,7 @@
   font-size: 28px;
   font-family: Roboto !important;
 }
+
 .adp-btn {
   background-color: #28a745;
   color: #fff;
@@ -15,11 +16,13 @@
   margin-top: 0.7rem;
   margin-bottom: 3rem;
 }
+
 .long-6 {
   width: 100%;
   height: calc(3rem + 2px);
   background-color: white;
 }
+
 .long-7 {
   margin-top: 10px;
   width: 100%;
@@ -28,12 +31,15 @@
 }
 .addProd-div-2 {
   position: relative;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 .showimages {
   display: flex;
   flex-wrap: wrap;
   gap: 3px;
 }
+
 .close-button {
   position: absolute;
   background-color: transparent;
@@ -81,7 +87,8 @@
 .add-select {
   width: 100%;
 }
-.ant-select-selection-overflow{
+
+.ant-select-selection-overflow {
   height: 44px;
   position: relative;
   display: flex;
@@ -90,12 +97,13 @@
   max-width: 100%;
 }
 
-.form-addproduct{
+.form-addproduct {
   display: flex;
-  gap : 1rem;
+  gap: 1rem;
   flex-direction: column;
 }
-.addProduct-div-01{
+
+.addProduct-div-01 {
   background-color: white;
   border-width: 1px;
   border-style: solid;
