@@ -26,6 +26,7 @@ import AddSize from './pages/SizeSection/AddSize';
 import SizeList from './pages/SizeSection/ListSize';
 import AddBanner from './pages/Banners/AddBanner';
 import BannerList from './pages/Banners/BannerList';
+import EditProduct from "./pages/Catalog/Product Section/EditProduct";
 
 function App() {
   return (
@@ -62,7 +63,7 @@ function App() {
         <Route path='size/:id' element={<AddSize/>}/>
         <Route path='product-list' element={<ProductList />}/>
         <Route path='product' element={<AddProduct />}/>
-        <Route path='product/:id' element={<AddProduct />}/>
+        <Route path='product/:id' element={<EditProduct />}/>
 
         <Route path='banner' element={<AddBanner />}/>
         <Route path='banner-list' element={<BannerList />}/>

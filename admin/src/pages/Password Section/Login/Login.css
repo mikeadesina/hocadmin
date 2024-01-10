@@ -1,12 +1,15 @@
+/* Add logo styling */
+.logo {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+}
+
 .adminlogin-div-1 {
     background: #232f3e;
-    padding-top: 0.2rem;
-    padding-bottom: 0.5rem;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: -2rem;
 }
 
 .adminlogin-div-2 {
@@ -15,49 +18,59 @@
     background-color: white;
     border-radius: 0.3rem;
     padding: 2rem;
-}
-
-.adminlogin-div-3 {
-    margin-bottom: 1rem;
-    text-align: right;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .adminlogin-button-1 {
     background: #febd69;
-    width: 107%;
+    width: 100%;
     height: 40px;
-    margin-top: 15px;
+    margin-top: 20px;
     color: white;
-    align-items: center;
     text-decoration: none;
     font-size: 1rem;
     font-weight: bold;
     border-radius: 0.5rem;
     border: none;
     cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-/* Adjust margin for the button to align with inputs */
-.adminlogin-button-1 {
-    margin-top: 15px;
-    margin-bottom: 0; /* Remove bottom margin */
+.adminlogin-button-1:hover {
+    background: #ffc84e;
 }
 
 .adminlogin-h3 {
-    text-align: center;
-    margin-top: 5px;
-    margin-bottom: 10px;
     font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     font-family: Roboto, sans-serif !important;
 }
 
 .adminlogin-p {
-    text-align: center;
     margin-top: 5px;
     margin-bottom: 20px;
 }
 
-/* Add media query for small screens */
+.error {
+    color: #ff4d4f;
+    margin-top: 5px;
+}
+
+/* Input styling */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Media query for small screens */
 @media only screen and (max-width: 768px) {
     .adminlogin-div-2 {
         width: 90%;

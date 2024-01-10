@@ -8,7 +8,6 @@ import { BsCart4 } from "react-icons/bs";
 import { AiOutlineCloudUpload, AiOutlineUser } from "react-icons/ai";
 import { MdCategory } from "react-icons/md";
 import { VscSymbolColor } from "react-icons/vsc";
-import { IoIosNotifications } from "react-icons/io";
 import { SiBrandfolder, SiBloglovin } from "react-icons/si";
 import { FaClipboardList, FaListUl } from "react-icons/fa";
 import { IoIosAddCircle } from "react-icons/io";

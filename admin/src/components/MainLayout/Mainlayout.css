@@ -10,12 +10,15 @@
     color: #1890ff;
 }
 
-.logo{
+.logo {
     height: 64px;
     margin: 0;
-    background:#ffd333;
+    background: #ffd333;
+    width: 100%; /* Set to 100% for responsiveness */
+    max-width: 250px; /* Set a maximum width if needed */
 }
-.logo-heading{
+
+.logo-heading {
     color: white;
     font-size: 1.25rem;
     text-align: center;
@@ -23,6 +26,7 @@
     padding-bottom: 1rem;
     margin-bottom: 0;
 }
+
 .ant-layout{
     min-height:100vh;
 }
@@ -100,4 +104,42 @@ main{
     white-space: nowrap;
     vertical-align: baseline;
     border-radius: 50%;
+}
+
+/* For smaller screens */
+@media (max-width: 768px) {
+    .ant-layout-sider {
+        flex: 0 0 80px !important;
+        max-width: 80px !important;
+        min-width: 80px !important;
+        width: 80px !important;
+    }
+    .ant-layout-sider-collapsed {
+        flex: 0 0 80px !important;
+        max-width: 80px !important;
+        min-width: 80px !important;
+        width: 80px !important;
+    }
+    .layout-div-2 {
+        gap: 1rem;
+    }
+}
+
+/* For larger screens */
+@media (min-width: 769px) {
+    .ant-layout-sider {
+        flex: 0 0 250px !important;
+        max-width: 250px !important;
+        min-width: 250px !important;
+        width: 250px !important;
+    }
+    .ant-layout-sider-collapsed {
+        flex: 0 0 80px !important;
+        max-width: 80px !important;
+        min-width: 80px !important;
+        width: 80px !important;
+    }
+    .layout-div-2 {
+        gap: 1.5rem;
+    }
 }

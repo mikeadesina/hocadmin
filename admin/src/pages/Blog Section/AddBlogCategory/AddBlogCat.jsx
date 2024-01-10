@@ -37,7 +37,7 @@ const AddBlogCat = () => {
     } else {
       dispatch(resetState());
     }
-  }, [getBlogCatId]);
+  }, [getBlogCatId,dispatch]);
 
   useEffect(() => {
     if (isSuccess && createBlogCategory) {
@@ -50,7 +50,7 @@ const AddBlogCat = () => {
     if (isError) {
       toast.error("Something Went Wrong!");
     }
-  }, [isSuccess, isError, isLoading]);
+  }, [isSuccess, isError, isLoading,createBlogCategory,updatedBlogCategory,navigate]);
 
   const formik = useFormik({
     enableReinitialize: true,

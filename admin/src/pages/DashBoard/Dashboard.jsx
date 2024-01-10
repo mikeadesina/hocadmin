@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { Column } from "@ant-design/plots";
 import { Table } from "antd";
-import { useDispatch, useSelector } from "react-redux";
+import {useDispatch, useSelector} from "react-redux"
 import { getMonthlyData, getOrders, getYearlyData } from "../../features/auth/authSlice";
 
 const columns = [
@@ -32,26 +32,28 @@ const columns = [
   },
 ];
 
-const Dashboard = () => {
-  const dispatch = useDispatch();
-  const monthlyDataState = useSelector((state) => state?.auth?.monthlyData);
-  const yearlyDataState = useSelector((state) => state?.auth?.yearlyData);
-  const orderState = useSelector((state) => state?.auth?.orders?.orders);
-  const [dataMonthly, setDataMonthly] = useState([]);
-  const [dataMonthlySales, setDataMonthlySales] = useState([]);
-  const [orderData, setOrderData] = useState([]);
-  const getTokenFromLocalStorage = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user"))
-      : null;
 
-  const config3 = {
-    headers: {
-      Authorization: `Bearer ${
-          getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
-      }`,
-      Accept: "application/json",
-    },
-  };
+const Dashboard = () => {
+
+  const dispatch = useDispatch();
+  const monthlyDataState = useSelector((state)=>state?.auth?.monthlyData);
+  const yearlyDataState = useSelector((state)=>state?.auth?.yearlyData);
+  const orderState = useSelector((state)=>state?.auth?.orders?.orders);
+  const [dataMonthly , setDataMonthly] = useState([])
+  const [dataMonthlySales , setDataMonthlySales] = useState([])
+  const [orderData , setOrderData] = useState([])
+  const getTokenFromLocalStorage = localStorage.getItem("user")
+  ? JSON.parse(localStorage.getItem("user"))
+  : null;
+
+ const config3 = {
+  headers: {
+    Authorization: `Bearer ${
+      getTokenFromLocalStorage !== null ? getTokenFromLocalStorage.token : ""
+    }`,
+    Accept: "application/json",
+  },
+};
 
   useEffect(() => {
     setTimeout(() => {
@@ -65,7 +67,6 @@ const Dashboard = () => {
     }, 100);
   }, [])
   console.log(orderState);
-
   useEffect(() => {
     let monthNames = [
       "January",
@@ -86,33 +87,32 @@ const Dashboard = () => {
     for (let index = 0; index < monthlyDataState?.length; index++) {
       const element = monthlyDataState[index];
       data.push({
-        type: monthNames[element._id?.month],
-        income: element?.amount,
-      });
+        type:monthNames[element._id?.month],income:element?.amount
+      })
       monthlyOrderCount.push({
-        type: monthNames[element._id?.month],
-        sales: element?.count,
-      });
+        type:monthNames[element._id?.month],sales:element?.count
+
+      })
     }
-    setDataMonthly(data);
-    setDataMonthlySales(monthlyOrderCount);
+    setDataMonthly(data)
+    setDataMonthlySales(monthlyOrderCount)
     const data1 = [];
-    for (let i = 0; i < orderState?.length; i++) {
-      data1.push({
-        key: i,
-        name:
-            orderState[i]?.user?.firstname + " " + orderState[i]?.user?.lastname,
-        product: orderState[i]?.orderItems?.length,
-        price: orderState[i]?.totalPrice,
-        dprice: orderState[i]?.totalPriceAfterDiscount,
-        status: orderState[i]?.orderStatus,
-      });
-    }
-    setOrderData(data1);
-  }, [monthlyDataState, yearlyDataState,orderState]);
+for (let i = 0; i < orderState?.length; i++) {
+  data1.push({
+    key: i,
+    name: orderState[i]?.user?.firstname + orderState[i]?.user?.lastname,
+    product: orderState[i]?.orderItems?.length,
+    price :orderState[i]?.totalPrice,
+    dprice: orderState[i]?.totalPriceAfterDiscount,
+    status: orderState[i]?.orderStatus,
+  });
+}
+  setOrderData(data1)
+  }, [monthlyDataState,yearlyDataState])
+
 
   const config = {
-    data: dataMonthly,
+    data : dataMonthly,
     xField: "type",
     yField: "income",
     color: ({ type }) => {
@@ -140,9 +140,8 @@ const Dashboard = () => {
       },
     },
   };
-
   const config2 = {
-    data: dataMonthlySales,
+    data : dataMonthlySales,
     xField: "type",
     yField: "sales",
     color: ({ type }) => {
@@ -170,7 +169,6 @@ const Dashboard = () => {
       },
     },
   };
-
   return (
       <div className="dashboard-container">
         <h3 className="dash-h3">Dashboard</h3>
@@ -231,6 +229,8 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
+
   );
 };
 
