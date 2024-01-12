@@ -49,7 +49,7 @@ const EditProduct = () => {
   const catState = useSelector((state) => state?.pCategory?.pCategories);
   const singleProductState = useSelector((state) => state?.product?.getsProd);
   const newProduct = useSelector((state) => state?.product);
-  const { isSuccess, isError, isLoading,updatedProduct} = newProduct;
+  const { isError} = newProduct;
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -94,8 +94,10 @@ const EditProduct = () => {
         dispatch(updateAProduct({ id:getproductId, product: values }));
         formik.resetForm();
         setUploadedImages([]);
+        toast.success("Product Updated Successfully!");
         setTimeout(() => {
           dispatch(resetState());
+          navigate("/")
         }, 1000);
       } catch (error) {
         console.error("Error updating product:", error);
@@ -142,14 +144,11 @@ const EditProduct = () => {
   }, [singleProductState, formik.setValues]);
 
   useEffect(() => {
-    if (isSuccess && updatedProduct) {
-      toast.success("Product Updated Successfully!");
-      navigate("/");
-    }
     if (isError) {
       toast.error("Something Went Wrong!");
     }
-  }, [isSuccess, isError, isLoading, navigate, updatedProduct]);
+  }, [isError]);
+
 
   const sizeopt = sizeState.map((i) => ({
     label: i.title,
