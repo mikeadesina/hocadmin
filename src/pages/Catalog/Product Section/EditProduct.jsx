@@ -14,11 +14,9 @@ import { uploadImg } from "../../../features/upload/uploadSlice";
 import { FcUpload } from "react-icons/fc";
 import { Select, Tag } from "antd";
 import Dropzone from "react-dropzone";
-
 import {
   updateAProduct,
-  getSingleProduct,
-  resetState
+  getSingleProduct
 } from "../../../features/product/productSlice";
 import { getSizes } from "../../../features/size/sizeSlice";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -96,8 +94,8 @@ const EditProduct = () => {
         setUploadedImages([]);
         toast.success("Product Updated Successfully!");
         setTimeout(() => {
-          dispatch(resetState());
-          navigate("/")
+          /*dispatch(resetState());*/
+          navigate("/admin/product-list");
         }, 1000);
       } catch (error) {
         console.error("Error updating product:", error);
