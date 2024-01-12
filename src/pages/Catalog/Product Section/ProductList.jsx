@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { deleteAProduct, getProducts } from "../../../features/product/productSlice";
 import { Link } from "react-router-dom";
 import CustomModal from "../../../components/CustomModel/CustomModel";
+import {formatNumber} from "../../../utils/axiosconfig";
 
 const getColorTags = (colors) => {
   return colors.map((color) => (
@@ -15,6 +16,8 @@ const getColorTags = (colors) => {
       </Tag>
   ));
 };
+
+
 
 const getSizeString = (sizes) => {
   return sizes.join(", ");
@@ -54,6 +57,7 @@ const columns = [
     title: "Price",
     dataIndex: "price",
     sorter: (a, b) => a.price - b.price,
+    render: (price) => formatNumber(price),
   },
   {
     title: "Action",
