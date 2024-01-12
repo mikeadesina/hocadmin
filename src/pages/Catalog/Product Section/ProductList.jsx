@@ -16,13 +16,9 @@ const getColorTags = (colors) => {
       </Tag>
   ));
 };
-
-
-
 const getSizeString = (sizes) => {
   return sizes.join(", ");
 };
-
 const columns = [
   {
     title: "SNo",
@@ -115,7 +111,6 @@ const ProductList = () => {
   }
 
   const deleteProduct = async (e) => {
-    console.log(e);
     await dispatch(deleteAProduct(e));
     dispatch(getProducts());
     setOpen(false);
