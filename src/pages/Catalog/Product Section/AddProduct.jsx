@@ -14,7 +14,7 @@ import {uploadImg} from "../../../features/upload/uploadSlice";
 import {FcUpload} from "react-icons/fc";
 import {Select} from "antd";
 import Dropzone from "react-dropzone";
-import {createProducts} from "../../../features/product/productSlice";
+import {createProducts,resetState} from "../../../features/product/productSlice";
 import {getSizes} from "../../../features/size/sizeSlice";
 import {useNavigate} from "react-router-dom";
 
@@ -50,12 +50,13 @@ const AddProduct = () => {
         dispatch(getCategories());
         dispatch(getColors());
         dispatch(getSizes())
+        dispatch(resetState());
     }, [dispatch]);
     useEffect(() => {
-        if (isSuccess && createdProduct) {
+        /*if (createdProduct !=null) {
             toast.success("Product Added Successfullly!");
-            navigate('/');
-        }
+            /!*navigate('/');*!/
+        }*/
         if (isError) {
             toast.error("Something Went Wrong!");
         }
@@ -75,6 +76,7 @@ const AddProduct = () => {
         validationSchema: schema,
         onSubmit: async (values) => {
             try {
+                alert("Please Wait");
                 setSubmitting(true);
                 const action = await dispatch(uploadImg(uploadedimages));
                 if (action.type === "upload/images/fulfilled") {
@@ -134,6 +136,7 @@ const AddProduct = () => {
     const handleImageDrop = (acceptedFiles) => {
         setUploadedImages([...uploadedimages, ...acceptedFiles]);
     };
+
     return (
         <div>
             <h3 className="adp-h3">
@@ -240,9 +243,9 @@ const AddProduct = () => {
                         id=""
                     >
                         <option value="" disabled>Tags</option>
-                        <option value="featured">Featured</option>
-                        <option value="popular">Popular</option>
-                        <option value="special">Special</option>
+                        <option value="featured">New Arrivals</option>
+                        <option value="popular">Best Sellers</option>
+                        <option value="special">Special Offer</option>
                     </select>
                     <div className="error">
                         {formik.touched.tags && formik.errors.tags}

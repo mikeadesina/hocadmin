@@ -31,8 +31,11 @@ const columns = [
       dataIndex: "shippingInfo",
     },
     {
-      title: "Color",
-      dataIndex: "color",
+        title: "Color",
+        dataIndex: "color",
+        render: (colorCode) => (
+            <div className="color-swatch" style={{ backgroundColor: colorCode }}></div>
+        ),
     },
     {
       title: "Amount",
@@ -57,7 +60,7 @@ const ViewOrder = () => {
       brand: orderState?.orderItems[i]?.product.brand,
       count: orderState?.orderItems[i]?.quantity,
       shippingInfo: orderState?.shippingInfo?.address,
-      amount: orderState?.orderItems[i]?.price,
+      amount: orderState?.orderItems[i]?.price.toLocaleString(),
       color: orderState?.orderItems[i]?.color?.title,
       payment: orderState?.paymentInfo?.method,
     });

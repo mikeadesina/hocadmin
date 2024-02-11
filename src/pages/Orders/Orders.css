@@ -3,3 +3,8 @@
     font-size: 28px;
     font-family: Roboto !important;
 }
+.color-swatch {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}

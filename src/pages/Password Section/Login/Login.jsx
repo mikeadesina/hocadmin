@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import { useNavigate } from "react-router-dom";
@@ -18,18 +18,28 @@ let schema = Yup.object().shape({
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
     validationSchema: schema,
-    onSubmit: (values) => {
-      dispatch(login(values));
+    onSubmit: async (values) => {
+      try {
+        setLoading(true);
+        await dispatch(login(values));
+        setLoading(false);
+      } catch (error) {
+        console.error("Login failed:", error);
+        setLoading(false);
+      }
     },
   });
+
   const authState = useSelector((state) => state);
-  const { user, isLoading, isError, isSuccess, message } = authState.auth;
+  const { user, isError, isSuccess, message } = authState.auth;
 
   useEffect(() => {
     if (isSuccess) {
@@ -37,12 +47,11 @@ const Login = () => {
     } else {
       navigate("");
     }
-  }, [navigate, user, isError, isSuccess, isLoading]);
+  }, [navigate, user, isError, isSuccess]);
 
   return (
       <div className="adminlogin-div-1">
         <div className="adminlogin-div-2">
-          {/* Add your logo here */}
           <img src={hoc} alt="Logo" className="logo" />
           <h3 className="adminlogin-h3">Login</h3>
           <p className="adminlogin-p">Login to your account to continue.</p>
@@ -68,9 +77,15 @@ const Login = () => {
                 onChng={formik.handleChange("password")}
             />
             <div className="error">{formik.touched.password && formik.errors.password}</div>
-            <button className="adminlogin-button-1" type="submit">
-              Login
-            </button>
+            {loading ? (
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+            ) : (
+                <button className="adminlogin-button-1" type="submit">
+                  Login
+                </button>
+            )}
           </form>
         </div>
       </div>

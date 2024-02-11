@@ -2,11 +2,9 @@ import React, { useEffect } from "react";
 import "./Orders.css";
 import { Table } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { BiEdit } from "react-icons/bi";
-import { AiOutlineDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { getOrders, updateAOrder } from "../../features/auth/authSlice";
-
+import {toast} from "react-toastify";
 const columns = [
   {
     title: "SNo",
@@ -39,9 +37,9 @@ const Orders = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOrders());
-  }, []);
+  }, [dispatch]);
   const orderState = useSelector((state) => state?.auth?.orders?.orders);
-  // console.log(orderState)
+
   const data1 = [];
   for (let i = 0; i < orderState?.length; i++) {
     data1.push({
@@ -50,20 +48,20 @@ const Orders = () => {
       product: (
         <Link to={`/admin/order/${orderState[i]?._id}`}>View Orders</Link>
       ),
-      amount: orderState[i].totalPrice,
+      amount: orderState[i].totalPrice.toLocaleString(),
       date: new Date(orderState[i]?.createdAt).toLocaleString(),
       action: (
         <>
           <select
-            name=""
-            onChange={(e) =>
-              updateOrderStatus(orderState[i]?._id, e.target.value)
-            }
-            className="form-control form-select"
-            id=""
-            defaultValue={orderState[i]?.orderStatus}
+              name=""
+              onChange={(e) =>
+                  updateOrderStatus(orderState[i]?._id, e.target.value)
+              }
+              className="form-control form-select"
+              id=""
+              value={orderState[i]?.orderStatus}
           >
-            <option value="Ordered" disabled selected>
+            <option value="Ordered" disabled>
               Ordered
             </option>
             <option value="Shipped">Shipped</option>
@@ -71,13 +69,21 @@ const Orders = () => {
             <option value="Out For Delivery">Out For Delivery</option>
             <option value="Delivered"> Delivered</option>
           </select>
+
         </>
       ),
     });
   }
 
-  const updateOrderStatus = (a, b) => {
-    dispatch(updateAOrder({ id: a, status: b }));
+  const updateOrderStatus = async (orderId, newStatus) => {
+    try {
+      await dispatch(updateAOrder({ id: orderId, status: newStatus }));
+      toast.success("Order status updated successfully");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error updating order status:", error);
+      toast.error("Failed to update order status");
+    }
   };
 
   return (

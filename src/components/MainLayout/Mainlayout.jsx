@@ -159,13 +159,13 @@ const Mainlayout = () => {
                 {
                   key: "banner",
                   icon: <IoIosAddCircle style={{ fontSize: "1.2rem" }} />,
-                  label: "Add Banner",
+                  label: "Update Banner",
                 },
-                {
+                /*{
                   key: "banner-list",
                   icon: <FaListUl style={{ fontSize: "1.2rem" }} />,
                   label: "Banner List",
-                },
+                },*/
               ]
             },
             {

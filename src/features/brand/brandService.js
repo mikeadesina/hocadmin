@@ -23,7 +23,6 @@ const updateBrand = async (brand) => {
 };
 const getBrand = async (id) => {
   const response = await axios.get(`${base_url}brand/${id}`, config);
-
   return response.data;
 };
 

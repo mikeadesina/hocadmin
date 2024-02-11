@@ -102,8 +102,8 @@ for (let i = 0; i < orderState?.length; i++) {
     key: i,
     name: orderState[i]?.user?.firstname + orderState[i]?.user?.lastname,
     product: orderState[i]?.orderItems?.length,
-    price :orderState[i]?.totalPrice,
-    dprice: orderState[i]?.totalPriceAfterDiscount,
+    price :orderState[i]?.totalPrice.toLocaleString(),
+    dprice: orderState[i]?.totalPriceAfterDiscount.toLocaleString(),
     status: orderState[i]?.orderStatus,
   });
 }
