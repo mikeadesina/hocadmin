@@ -19,6 +19,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   max-width: 500px;
   width: 100%;
+  margin-right:38%;
 }
 
 .payment-modal h2 {

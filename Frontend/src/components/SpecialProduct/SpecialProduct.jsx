@@ -3,7 +3,7 @@ import "./SpecialProduct.css";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
 const SpecialProduct = (props) => {
-  const { title, brand, price, totalrating, sold, quantity , images , id } = props;
+  const { title, brand, price, totalrating, quantity , images , id } = props;
   return (
     <>
       <div className="special-coloum-01">
@@ -23,7 +23,7 @@ const SpecialProduct = (props) => {
                 activeColor="#ffd700"
               />
               <p className="price">
-                <span className="red-p">${price}</span>&nbsp;
+                <span className="red-p">${price.toLocaleString()}</span>&nbsp;
               </p>
               <div className="prod-count">
                 <p>stock: {quantity}</p>

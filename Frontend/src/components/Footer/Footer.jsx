@@ -4,11 +4,14 @@ import { Link } from "react-router-dom";
 import newsletter from "../../images/newsletter.png"
 import { BsLinkedin, BsGithub, BsInstagram } from "react-icons/bs";
 import { BsChevronDown, BsChevronUp } from "react-icons/bs";
+import {useSelector} from "react-redux";
+import {capitalizeFirstLetter} from "../../utils/function";
 const Footer = () => {
   function toggleAccordion(accordionId) {
     const accordion = document.getElementById(accordionId);
     accordion.classList.toggle("active");
   }
+  const pCatState = useSelector((state) => state?.pCategory?.pCategories);
   return (
     <>
       <footer className="f-1">
@@ -62,10 +65,7 @@ const Footer = () => {
               </h4>
               <div id="accordion1"  className="accordion-content">
                 <address style={{ color: "white", marginLeft: 20 }}>
-                  Nijeria : 123 something
-                  <br />
-                  <br />
-                  ZipCode 12345
+                  Address: E9/916 Abayomi Layout, Iwo Road,Ibadan Nigeria
                 </address>
                 <a
                   style={{
@@ -75,9 +75,9 @@ const Footer = () => {
                     marginLeft: 20,
                     color: "white",
                   }}
-                  href="tel:123456789"
+                  href="tel:+2347041093242"
                 >
-                  123456789
+                  +2347041093242
                 </a>
                 <a
                   style={{
@@ -87,9 +87,9 @@ const Footer = () => {
                     marginLeft: 20,
                     color: "white",
                   }}
-                  href="mailto:something@gmail.com"
+                  href="mailto:akinboroabiodun@gmail.com"
                 >
-                  something@gmail.com
+                  akinboroabiodun@gmail.com
                 </a>
                 <div
                   style={{
@@ -148,10 +148,14 @@ const Footer = () => {
                 Quick Links
               </h4>
               <div id="accordion4"  className="footer-links accordion-content">
-                <Link to={`/product?category=Lapotop`} className="links-20">Laptops</Link>
-                <Link to={`/product?category=Shoes`} className="links-20">Shoes</Link>
-                <Link to={`/product?category=Cell%20Phones`} className="links-20">Cell Phones</Link>
-                <Link to={`/product?category=Shirts`} className="links-20">Shirts</Link>
+                {pCatState &&
+                    pCatState?.map((item) => {
+                      return (
+                            <Link key={item._id} className="links-20" to={`/product?category=${item?.title}`}>
+                              {capitalizeFirstLetter(item?.title)}
+                            </Link>
+                          )}
+                    )}
               </div>
             </div>
           </div>

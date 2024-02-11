@@ -15,12 +15,9 @@ import { useLocation } from "react-router-dom";
 const Cart = () => {
   const location = useLocation();
   const selectedSize = location.state?.selectedSize;
-
-
   const getTokenFromLocalStorage = localStorage.getItem("customer")
   ? JSON.parse(localStorage.getItem("customer"))
   : null;
-
  const config2 = {
   headers: {
     Authorization: `Bearer ${
@@ -29,9 +26,7 @@ const Cart = () => {
     Accept: "application/json",
   },
 };
-
   const dispatch = useDispatch();
-
   const [productUpdateDetail, setProductUpdateDetail] = useState(null);
   const [totalAmount, setTotalAmount] = useState(null);
   const userCartState = useSelector((state) => state?.auth?.cartProducts);
@@ -70,6 +65,7 @@ const Cart = () => {
     }
   }, [userCartState]);
 
+
   return (
     <>
       <Meta title={"Cart"} />
@@ -100,35 +96,36 @@ const Cart = () => {
                           <p style={{ marginBottom: "20px" }}>
                             {item?.productId?.title}
                           </p>
-                          <p
-                            style={{
-                              marginTop: "20px",
-                              marginBottom: "15px",
-                              display: "flex",
-                              gap: "1rem",
-                            }}
+                          <div
+                              style={{
+                                marginTop: "20px",
+                                marginBottom: "15px",
+                                display: "flex",
+                                gap: "1rem",
+                              }}
                           >
-                            Color :
+                            <span>Color :</span>
                             <ul className="colors">
                               <li
-                                style={{ backgroundColor: item?.color?.title }}
+                                  style={{ backgroundColor: item?.color?.title }}
                               ></li>
                             </ul>
-                          </p>
-                          <p 
-                           style={{
-                              marginTop: "20px",
-                              marginBottom: "15px",
-                              display: "flex",
-                              gap: "1rem",
-                            }}
-                            >
-                            Size : {selectedSize}
-                          </p>
+                          </div>
+                          <div
+                              style={{
+                                marginTop: "20px",
+                                marginBottom: "15px",
+                                display: "flex",
+                                gap: "1rem",
+                              }}
+                          >
+                            {/*Size : {selectedSize}*/}
+                          </div>
                         </div>
+
                       </div>
                       <div className="cart-coloum-02">
-                        <h5 className="price">$ {item?.price}</h5>
+                        <h5 className="price">NGN {item?.price.toLocaleString()}</h5>
                       </div>
                       <div className="cart-coloum-03">
                         <div>
@@ -162,7 +159,7 @@ const Cart = () => {
                       </div>
                       <div className="cart-coloum-04">
                         <h5 className="price">
-                          $ {item?.price * item?.quantity}
+                          NGN {(item?.price * item?.quantity).toLocaleString()}
                         </h5>
                       </div>
                     </div>
@@ -176,7 +173,7 @@ const Cart = () => {
                 </Link>
                 {(totalAmount !== null || totalAmount !== 0) && (
                   <div className="cart-div-05">
-                    <h4 className="cart-p-h">SubTotal : $ {totalAmount} </h4>
+                    <h4 className="cart-p-h">SubTotal : NGN {totalAmount?.toLocaleString()} </h4>
                     <p className="cart-p-h">
                       Taxes and shipping calculated at checkout
                     </p>

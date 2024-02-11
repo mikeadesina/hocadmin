@@ -17,7 +17,6 @@ const getProducts = async (data) => {
       return response.data;
     }
   } catch (error) {
-    console.error(error);
     throw new Error("Failed to fetch products");
   }
 };
@@ -25,13 +24,11 @@ const getProducts = async (data) => {
 const getSingleProduct = async (id) => {
   const response = await axios.get(`${base_url}product/${id}`);
   if (response.data) {
-    console.log("Single Product: ", JSON.stringify(response));
     return response.data;
   }
 };
 
 const addToWishlist = async (prodId) => {
-  console.log(prodId);
   const response = await axios.put(
     `${base_url}product/wishlist`,
     { prodId },

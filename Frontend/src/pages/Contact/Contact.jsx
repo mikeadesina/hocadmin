@@ -138,7 +138,7 @@ const Contact = () => {
                       >
                         <AiOutlineHome style={{ fontSize: "1.25rem" }} />
                         <address>
-                          Something is the address 203821 Nigeria
+                          Address: E9/916 Abayomi Layout, Iwo Road,Ibadan
                         </address>
                       </li>
                       <li
@@ -150,7 +150,7 @@ const Contact = () => {
                         }}
                       >
                         <BiPhoneCall style={{ fontSize: "1.25rem" }} />
-                        <a href="tel:+123456789">123456789</a>
+                        <a href="tel:+2347041093242">+2347041093242</a>
                       </li>
                       <li
                         style={{
@@ -161,8 +161,8 @@ const Contact = () => {
                         }}
                       >
                         <AiOutlineMail style={{ fontSize: "1.25rem" }} />
-                        <a href="mailto:something@gmail.com">
-                          Something@gmail.com
+                        <a href="mailto:akinboroabiodun@gmail.com">
+                          akinboroabiodun@gmail.com
                         </a>
                       </li>
                       <li

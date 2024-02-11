@@ -29,6 +29,14 @@ const login = async (userData) => {
   }
 };
 
+const logout = async () => {
+  localStorage.clear();
+  const response = await axios.get(`${base_url}user/logout`);
+  if(response.data){
+    return response.data;
+  }
+}
+
 const getUserWishlist = async () => {
   const response = await axios.get(`${base_url}user/wishlist`,config);
   if(response.data){
@@ -43,8 +51,7 @@ const addToCart = async(cartData) => {
 }
 
 const getCart = async(data) => {
-  console.log("cartser = " , data);
-  const response = await axios.get(`${base_url}user/cart`, data);
+  const response = await axios.get(`${base_url}user/cart`,config, data);
   if(response.data){
     return response.data;
   }
@@ -108,6 +115,7 @@ const emptyCart = async () => {
 export const authService = {
   register,
   login,
+  logout,
   getUserWishlist,
   addToCart,
   getCart,

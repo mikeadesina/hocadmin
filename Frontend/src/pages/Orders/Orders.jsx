@@ -9,7 +9,6 @@ const Orders = () => {
   const orderState = useSelector(
     (state) => state?.auth?.getOrderedProduct?.orders
   );
-  console.log(orderState);
   useEffect(() => {
     dispatch(getOrders());
   }, []);
@@ -51,10 +50,10 @@ const Orders = () => {
                           <p className="pad">{item?._id}</p>
                         </div>
                         <div className="order-page-coloum-3" id="remo">
-                          <p>{item?.totalPrice}</p>
+                          <p>{item?.totalPrice.toLocaleString()}</p>
                         </div>
                         <div className="order-page-coloum-3" id="remo">
-                          <p>{item?.totalPriceAfterDiscount}</p>
+                          <p>{item?.totalPriceAfterDiscount.toLocaleString()}</p>
                         </div>
                         <div className="order-page-coloum-3" id="remo">
                           <p>{item?.orderStatus}</p>
@@ -87,7 +86,7 @@ const Orders = () => {
                                       <p>{i?.quantity}</p>
                                     </div>
                                     <div className="order-page-coloum-3">
-                                      <p>{i.price}</p>
+                                      <p>{i.price.toLocaleString()}</p>
                                     </div>
                                     <ul className="colors">
                                       <li

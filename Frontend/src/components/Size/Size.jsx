@@ -6,8 +6,6 @@ const Size = (props) => {
   const handleClick = (selectedSize) => {
     setSize(selectedSize);
   };
-
-  console.log("selects  = " , sizeData);
   return (
     <div className="sizes">
       <h3 className="product-heading">Size:</h3>

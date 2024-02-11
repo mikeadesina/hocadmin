@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./CheckOut.css";
 import Meta from "../../components/Meta/Meta";
 import BreadCrumb from "../../components/BreadCrumb/BreadCrumb";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { BiArrowBack } from "react-icons/bi";
 import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
@@ -15,7 +15,7 @@ import Payment from "../Payment/Payment";
 import { config } from "../../utils/axiosconfig";
 import { deleteUserCart } from "../../features/user/userSlice";
 import { usePaystackPayment } from "react-paystack";
-
+import {allCountries, allStates} from "../../utils/function";
 const shippingSchema = yup.object({
   firstName: yup.string().required("First Name is required"),
   lastName: yup.string().required("Last Name is required"),
@@ -25,11 +25,12 @@ const shippingSchema = yup.object({
   state: yup.string().required("State is required"),
   city: yup.string().required("City is required"),
   country: yup.string().required("Country is required"),
-  pincode: yup.number().required("Pincode is required"),
+  pincode: yup.string().required("Pincode is required"),
 });
 
 const CheckOut = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartState = useSelector((state) => state?.auth?.cartProducts);
   const [totalAmount, setTotalAmount] = useState(null);
   const [cartProductState, setCartProductState] = useState([]);
@@ -37,6 +38,7 @@ const CheckOut = () => {
   const [paymentMethod, setPaymentMethod] = useState("");
   const orderState = useSelector((state) => state?.auth?.orderCreated?.order);
   const user = useSelector((state) => state?.auth?.user);
+
 
   useEffect(() => {
     let items = [];
@@ -64,7 +66,7 @@ const CheckOut = () => {
   }, [cartState]);
 
   const option = {
-    public_key: "FLWPUBK_TEST-1bc4bb2aebb5377a7c811d27eb7b1dec-X",
+    public_key: process.env.REACT_APP_FLUTTERWAVE_PUBLIC_KEY,
     tx_ref: Date.now(),
     amount: totalAmount + 50,
     currency: "NGN",
@@ -99,12 +101,9 @@ const CheckOut = () => {
       console.log(values);
     },
   });
-
   /* PAyStack Integration */
-  const publicKey = "pk_test_8eccdfdbd89d9e917cbc3752f09d5ff4f335c579";
-
+  const publicKey = process.env.REACT_APP_PAYSTACK_PUBLIC_KEY;
   const amountInKobo = totalAmount * 100;
-  
   const payConfig = {
     publicKey:publicKey,
     reference: (new Date()).getTime().toString(),
@@ -130,10 +129,8 @@ const CheckOut = () => {
   const onClosePaystack = () => {
     setIsModalOpen(false);
   };
-
   const handlePaymentOption = (option1) => {
     setPaymentMethod(option1);
-
     if (option1 === "flutterwave") {
       // Call the Flutterwave payment function here
       handleFlutterPayment({
@@ -155,12 +152,9 @@ const CheckOut = () => {
         method: "Cash On Delivery",
       });
     }
-
     setIsModalOpen(false);
   };
-
   // Removed handleFlutterPayment function
-
   const createOrderWithPaymentInfo = async (paymentInfo) => {
     try {
       // Create the order data object with payment information
@@ -171,8 +165,10 @@ const CheckOut = () => {
         totalPriceAfterDiscount: totalAmount,
         paymentInfo: paymentInfo,
       };
-
-      dispatch(createAnOrder(orderData));
+     await dispatch(createAnOrder(orderData));
+      setTimeout(() => {
+        navigate("/my-orders");
+      }, 300);
     } catch (error) {
       console.error("Error creating order:", error);
     }
@@ -196,21 +192,22 @@ const CheckOut = () => {
                       </Link>
                     </li>
                     <li
-                      className="breadcrumb-item total-price  active"
-                      aria-current="page"
+                        className="breadcrumb-item total-price  active"
+                        aria-current="page"
                     >
                       Information
                     </li>
                     <li className="breadcrumb-item  total-price active">
-                      <li className="checkout-link-2" to="/cart">
+                      <Link className="checkout-link-2" to="/cart">
                         Shipping
-                      </li>
+                      </Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
                       Payment
                     </li>
                   </ol>
                 </nav>
+
                 <h4 style={{ marginBottom: "1rem", marginTop: "20px" }}>
                   Shipping Address
                 </h4>
@@ -220,24 +217,6 @@ const CheckOut = () => {
                   onSubmit={formik.handleSubmit}
                   className="checkout-form"
                 >
-                  <div className="checkout-div-01">
-                    <select
-                      className="checkout-form-control select-control"
-                      name="country"
-                      id=""
-                      onChange={formik.handleChange("country")}
-                      onBlur={formik.handleBlur("country")}
-                      value={formik.values.country}
-                    >
-                      <option value="" selected disabled>
-                        Select Country
-                      </option>
-                      <option value="pakistan">Pakistan</option>
-                    </select>
-                    <div className="error">
-                      {formik.touched.country && formik.errors.country}
-                    </div>
-                  </div>
                   <div className="checkout-div-03">
                     <input
                       type="text"
@@ -268,6 +247,92 @@ const CheckOut = () => {
                       {formik.touched.lastName && formik.errors.lastName}
                     </div>
                   </div>
+                  <div className="checkout-div-03">
+                    <input
+                        type="text"
+                        placeholder="email"
+                        className="checkout-form-control"
+                        name="email"
+                        id=""
+                        onChange={formik.handleChange("email")}
+                        onBlur={formik.handleChange("email")}
+                        value={formik.values.email}
+                    />
+                    <div className="error">
+                      {formik.touched.email && formik.errors.email}
+                    </div>
+                  </div>
+                  <div className="checkout-div-03">
+                    <select
+                        className="checkout-form-control select-control"
+                        name="country"
+                        id=""
+                        onChange={(e) => formik.handleChange("country")(e)}
+                        onBlur={formik.handleBlur("country")}
+                        value={formik.values.country}
+                    >
+                      <option value="" disabled>
+                        Select Country
+                      </option>
+                      {allCountries.map((country) => (
+                          <option key={country.code} value={country.name}>
+                            {country.name}
+                          </option>
+                      ))}
+                    </select>
+                    <div className="error">
+                      {formik.touched.country && formik.errors.country}
+                    </div>
+                  </div>
+                  <div className="checkout-div-03">
+                    <select
+                        className="checkout-form-control"
+                        name="state"
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        value={formik.values.state}
+                    >
+                      <option value="" disabled>
+                        Select State
+                      </option>
+                      {allStates.map((item) => (
+                          <option key={item.code} value={item.name}>{item.name}</option>
+                      ))}
+                    </select>
+                    <div className="error">
+                      {formik.touched.state && formik.errors.state}
+                    </div>
+                  </div>
+                  <div className="checkout-div-03">
+                    <input
+                        type="text"
+                        placeholder="city"
+                        className="checkout-form-control"
+                        name="city"
+                        id=""
+                        onChange={formik.handleChange("city")}
+                        onBlur={formik.handleChange("city")}
+                        value={formik.values.city}
+                    />
+                    <div className="error">
+                      {formik.touched.city && formik.errors.city}
+                    </div>
+                  </div>
+                  <div className="checkout-div-03">
+                    <input
+                        type="text"
+                        placeholder="Pincode"
+                        className="checkout-form-control"
+                        name="pin"
+                        id=""
+                        onChange={formik.handleChange("pincode")}
+                        onBlur={formik.handleChange("pincode")}
+                        value={formik.values.pincode}
+                    />
+                    <div className="error">
+                      {formik.touched.pincode && formik.errors.pincode}
+                    </div>
+                  </div>
                   <div className="checkout-div-02">
                     <input
                       type="text"
@@ -296,68 +361,6 @@ const CheckOut = () => {
                     />
                     <div className="error">
                       {formik.touched.other && formik.errors.other}
-                    </div>
-                  </div>
-                  <div className="checkout-div-03">
-                    <input
-                      type="text"
-                      placeholder="city"
-                      className="checkout-form-control"
-                      name="city"
-                      id=""
-                      onChange={formik.handleChange("city")}
-                      onBlur={formik.handleChange("city")}
-                      value={formik.values.city}
-                    />
-                    <div className="error">
-                      {formik.touched.city && formik.errors.city}
-                    </div>
-                  </div>
-                  <div className="checkout-div-03">
-                    <input
-                      type="text"
-                      placeholder="email"
-                      className="checkout-form-control"
-                      name="email"
-                      id=""
-                      onChange={formik.handleChange("email")}
-                      onBlur={formik.handleChange("email")}
-                      value={formik.values.email}
-                    />
-                    <div className="error">
-                      {formik.touched.email && formik.errors.email}
-                    </div>
-                  </div>
-                  <div className="checkout-div-03">
-              
-                      <input
-                      type="text"
-                      placeholder="ZipCode"
-                      className="checkout-form-control"
-                      name="pin"
-                      id=""
-                      onChange={formik.handleChange("state")}
-                      onBlur={formik.handleChange("state")}
-                      value={formik.values.state}
-                      />
-                
-                    <div className="error">
-                      {formik.touched.state && formik.errors.state}
-                    </div>
-                  </div>
-                  <div className="checkout-div-03">
-                    <input
-                      type="text"
-                      placeholder="State"
-                      className="checkout-form-control"
-                      name="pin"
-                      id=""
-                      onChange={formik.handleChange("pincode")}
-                      onBlur={formik.handleChange("pincode")}
-                      value={formik.values.pincode}
-                    />
-                    <div className="error">
-                      {formik.touched.pincode && formik.errors.pincode}
                     </div>
                   </div>
                   <div className="checkout-div-01">
@@ -409,12 +412,16 @@ const CheckOut = () => {
                             <h5 className="total-price checkout-title">
                               {item?.productId?.title}
                             </h5>
-                            <p className="total-price">{item?.color?.title}</p>
+                            <ul className="colors">
+                              <li
+                                  style={{ backgroundColor: item?.color?.title }}
+                              ></li>
+                            </ul>
                           </div>
                         </div>
                         <div className="checkout-div-10">
                           <h5 className="total">
-                            ${item?.price * item?.quantity}
+                            NGN {(item?.price * item?.quantity).toLocaleString()}
                           </h5>
                         </div>
                       </div>
@@ -425,18 +432,18 @@ const CheckOut = () => {
                 <div className="checkout-div-05">
                   <p className="total">SubTotal</p>
                   <p className="total-price">
-                    $ {totalAmount ? totalAmount : "0"}
+                    NGN {totalAmount ? totalAmount.toLocaleString() : "0"}
                   </p>
                 </div>
                 <div className="checkout-div-05">
                   <p className="total">Shipping</p>
-                  <p className="total-price">$ 5</p>
+                  <p className="total-price">NGN 5</p>
                 </div>
               </div>
               <div className="checkout-div-05">
                 <h4 className="total">Total</h4>
                 <h5 className="total-price">
-                  $ {totalAmount ? totalAmount + 5 : "0"}
+                  NGN {(totalAmount ? totalAmount + 5 : 0).toLocaleString()}
                 </h5>
               </div>
             </div>

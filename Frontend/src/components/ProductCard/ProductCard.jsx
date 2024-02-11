@@ -7,9 +7,6 @@ import watch1 from "../../images/watch-1.jpg";
 import view from "../../images/view.svg";
 import {useDispatch} from "react-redux";
 import {addToWishlist} from "../../features/product/productSlice"
-
-
-
 const ProductCard = (props) => {
   const { grid , data } = props;
   let location = useLocation();
@@ -51,7 +48,7 @@ const ProductCard = (props) => {
             <ReactStars
               count={5}
               size={24}
-              value={item.totalrating.toString()}
+              value={parseFloat(item.totalrating) || 0}
               edit={false}
               activeColor="#ffd700"
             />

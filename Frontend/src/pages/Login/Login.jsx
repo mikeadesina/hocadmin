@@ -31,7 +31,7 @@ const Login = () => {
 
   useEffect(() => {
     if(authState.user !== null && authState.isError === false){
-      navigate("/")
+      navigate("/");
     }
   }, [authState])
   return (
@@ -42,6 +42,9 @@ const Login = () => {
         <div className="login-container-01">
         <div className="login-row-01">
           <div className="login-coloum-01">
+            <div className="error" style={{ textAlign: "center" }}>
+              {authState.message.message === "Rejected" ? "Invalid Credential" : ""}
+            </div>
             <div className="auth-card">
               <h3 className="login-h3-01">Login</h3>
               <form

@@ -2,7 +2,6 @@ import React from "react";
 
 const Color = (props) => {
   const {colorData , setColor} = props;
-  console.log("color" , colorData);
   return (
     <>
       <ul className="colors">

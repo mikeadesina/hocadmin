@@ -11,11 +11,8 @@ import { addToWishlist } from "../../features/product/productSlice";
 const WishList = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    getWishlistFromDb();
-  }, []);
-  const getWishlistFromDb = () => {
     dispatch(getUserProductWishlist());
-  };
+  }, [dispatch]);
   const wishlistState = useSelector((state) => state?.auth?.wishlist?.wishlist);
   const removeFromWishlist = (id) => {
     dispatch(addToWishlist(id));
