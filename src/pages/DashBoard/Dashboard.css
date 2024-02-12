@@ -1,0 +1,242 @@
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.dash-h3 {
+    margin-bottom: 1rem;
+    font-size: 28px;
+    font-family: Roboto, sans-serif !important;
+}
+
+.dash-row {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+}
+
+.dash-card-container {
+    display: flex;
+    flex: 1;
+    gap: 1.5rem;
+}
+
+.dash-card {
+    flex: 1;
+    background: white;
+    padding: 1rem;
+    border: 0.25rem solid;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.dash-card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.dash-div-1,
+.dash-div-2,
+.dash-div-3,
+.dash-div-4,
+.dash-div-5,
+.dash-card {
+    display: flex;
+    background: white;
+    padding: 1rem;
+    border: 0.25rem solid;
+    flex-grow: 1;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.dash-div-5,
+.dash-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.dash-h4 {
+    margin-bottom: 10px;
+}
+
+.dash-h2 {
+    margin-top: 20px;
+}
+
+.dashh-h3 {
+    margin-top: 30px;
+    margin-bottom: 2rem;
+    font-size: 27px;
+    font-family: Roboto, sans-serif !important;
+}
+
+.mo-or {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.dash-card + .dash-card {
+    margin-top: 1.5rem;
+}
+
+/* Add a media query for smaller screens */
+@media only screen and (max-width: 600px) {
+    .dash-div-2,
+    .dash-div-3,
+    .dash-div-4,
+    .dash-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .mo-or {
+        flex-direction: column;
+    }
+
+    /* Adjust spacing for smaller screens if needed */
+    .dash-div-2,
+    .dash-div-3,
+    .dash-div-4,
+    .dash-card {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Card container */
+.dash-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+/* Card header */
+.dash-card-header {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Card body */
+.dash-card-body {
+    padding: 1rem;
+}
+
+/* Card title */
+.dash-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Card subtitle */
+.dash-card-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+/* Card footer */
+.dash-card-footer {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+}
+
+/* Hover effect */
+.dash-card:hover {
+    transform: scale(1.05);
+}
+
+
+/* Existing styles... */
+@media only screen and (max-width: 600px) {
+    .dash-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dash-row {
+        flex-direction: column;
+    }
+
+    .dash-card + .dash-card {
+        margin-top: 1.5rem;
+    }
+}
+
+/* New styles for equal size of the first two cards */
+.dash-card-container {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* Adjust the flex property for each card to ensure equal size */
+.dash-card-container .dash-card {
+    flex: 1; /* Equal distribution of space */
+}
+
+.dash-row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.dash-card {
+    background: white;
+    padding: 1rem;
+    border: 0.25rem solid;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+/* Add other styling as needed */
+
+
+/* New styles for equal size of the first two cards */
+.dash-card-container {
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    gap: 1.5rem;
+}
+
+.dash-row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.dash-card {
+    flex: 1;
+    background: white;
+    padding: 1rem;
+    border: 0.25rem solid;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+/* Add other styling as needed */
+
+
+.dash-card {
+    flex: 1;
+    background: white;
+    padding: 1rem;
+    border: 0.25rem solid;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+/* Add other styling as needed */
+
+
