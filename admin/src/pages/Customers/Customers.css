@@ -1,0 +1,10 @@
+.cus-list-h3 {
+    margin-bottom: 1.5rem;
+    font-size: 28px;
+    font-family: Roboto, sans-serif !important;
+}
+@media only screen and (max-width: 600px) {
+    .cus-list-h3 {
+        font-size: 22px;
+    }
+}
